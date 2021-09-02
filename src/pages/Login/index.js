@@ -1,4 +1,6 @@
 import React from 'react';
+import EmailInput from '../../Components/EmailInput';
+import LoginInput from '../../Components/LoginInput';
 import logo from '../../trivia.png';
 
 class Login extends React.Component {
@@ -38,31 +40,18 @@ class Login extends React.Component {
         </header>
 
         <form action="GET">
-          <label htmlFor="login">
-            Login:
-            <input
-              type="text"
-              name="login"
-              id="login"
-              data-testid="input-player-name"
-              value={ login }
-              onChange={ this.handleChange }
-            />
-          </label>
+          <LoginInput onChange={ this.handleChange } value={ login } />
 
-          <label htmlFor="email">
-            Email:
-            <input
-              type="text"
-              name="email"
-              id="email"
-              data-testid="input-gravatar-email"
-              value={ email }
-              onChange={ this.handleChange }
-            />
-          </label>
+          <EmailInput onChange={ this.handleChange } value={ email } />
 
-          <button type="button" data-testid="btn-play" disabled={ this.checkFields() }>Jogar</button>
+          <button
+            type="button"
+            data-testid="btn-play"
+            disabled={ this.checkFields() }
+          >
+            Jogar
+
+          </button>
         </form>
 
       </main>

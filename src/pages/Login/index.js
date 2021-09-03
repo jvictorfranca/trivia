@@ -46,6 +46,7 @@ class Login extends React.Component {
   async fetchToken() {
     const urlToken = await fetch('https://opentdb.com/api_token.php?command=request');
     const { token } = await urlToken.json();
+    localStorage.setItem('token', token);
     return token;
   }
 

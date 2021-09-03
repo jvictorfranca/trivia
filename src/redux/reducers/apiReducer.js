@@ -1,5 +1,7 @@
 const INNITIAL_STATE = {
-  trivias: [],
+  trivias: {
+    current: 0,
+  },
   userData: {
     name: '',
     email: '',
@@ -12,7 +14,7 @@ function apiReducer(state = INNITIAL_STATE, action) {
   case 'ADD_TRIVIA':
     return {
       ...state,
-      trivias: [...state.trivias, ...action.payload],
+      trivias: { ...state.trivias, ...action.payload },
     };
 
   case 'ADD_USERDATA':

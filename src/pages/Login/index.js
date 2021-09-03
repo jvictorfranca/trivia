@@ -55,8 +55,8 @@ class Login extends React.Component {
 
   render() {
     const { login, email } = this.state;
-    console.log(this.checkFields());
     const { history } = this.props;
+    console.log(this.checkFields());
     return (
       <main>
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import propTypes from 'prop-types';
 // import apiReducer from '../../redux/reducers/apiReducer';
 
 class Game extends Component {
@@ -52,6 +53,13 @@ class Game extends Component {
     );
   }
 }
+
+Game.propTypes = {
+  trivia: propTypes.shape({
+    current: propTypes.number.isRequired,
+    results: propTypes.arrayOf(propTypes.object.isRequired),
+  }).isRequired,
+};
 
 const mapStateToProps = (state) => ({
   trivia: state.apiReducer.trivias,

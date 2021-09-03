@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import EmailInput from '../../Components/EmailInput';
 import LoginInput from '../../Components/LoginInput';
 import logo from '../../trivia.png';
+import { addUserData } from '../../redux/actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -28,9 +30,16 @@ class Login extends React.Component {
   }
 
   async handleClick() {
-    const { history } = this.props;
+    const { history, functionAddUserData } = this.props;
+    const { email, login } = this.state;
+    const payload = {
+      name: login,
+      email,
+    };
+    functionAddUserData(payload);
     const token = await this.fetchToken();
     console.log(token);
+
     history.push('/trivia');
   }
 
@@ -79,6 +88,25 @@ Login.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
+  functionAddUserData: PropTypes.func.isRequired,
 };
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  functionAddUserData: (payload) => { dispatch(addUserData(payload)); },
+});
+
+// estadoGlobal = {
+//   apliReducer: {
+//     trivias: [],
+//     userData: {
+//       name: '',
+//       email: '',
+//     },
+//   }
+//   }
+
+const mapStateToProps = (state) => ({
+  userName: state.apiReducer.userData.name,
+  userEmail: state.apiReducer.userData.email,
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

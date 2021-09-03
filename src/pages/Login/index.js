@@ -37,14 +37,12 @@ class Login extends React.Component {
   async fetchToken() {
     const urlToken = await fetch('https://opentdb.com/api_token.php?command=request');
     const { token } = await urlToken.json();
-    localStorage.setItem('token', token);
     return token;
   }
 
   render() {
     const { login, email } = this.state;
     console.log(this.checkFields());
-    const { history } = this.props;
     return (
       <main>
 
@@ -68,14 +66,6 @@ class Login extends React.Component {
           >
             Jogar
 
-          </button>
-
-          <button
-            type="button"
-            data-testid="btn-settings"
-            onClick={ () => history.push('/configuracoes') }
-          >
-            Configurações
           </button>
         </form>
 

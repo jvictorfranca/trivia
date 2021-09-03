@@ -44,6 +44,7 @@ class Login extends React.Component {
   render() {
     const { login, email } = this.state;
     console.log(this.checkFields());
+    const { history } = this.props;
     return (
       <main>
 
@@ -67,6 +68,14 @@ class Login extends React.Component {
           >
             Jogar
 
+          </button>
+
+          <button
+            type="button"
+            data-testid="btn-settings"
+            onClick={ () => history.push('/configuracoes') }
+          >
+            Configurações
           </button>
         </form>
 

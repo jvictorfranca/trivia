@@ -6,24 +6,47 @@ class Game extends Component {
   render() {
     const { trivia } = this.props;
     const { results } = trivia;
-    const currentQuestion = results[trivia.current];
-    const correctAnswer = {
-      correct: true,
-      number: Math.random(),
-      answer: currentQuestion.correct_answer,
-    };
-    const wrongAnswers = currentQuestion.incorrectAnswers.map(answer => ({
-      correct:false,
-      number: Math.random(),
-      answer: answer,
+    let currentQuestion;
+    let allAnswers;
+    if (results) {
+      currentQuestion = results[trivia.current];
+      const correctAnswer = {
+        correct: true,
+        number: Math.random(),
+        answer: currentQuestion.correct_answer,
+      };
+      console.log(currentQuestion);
+      const wrongAnswers = currentQuestion.incorrect_answers.map((answer, index) => ({
+        correct: false,
+        number: Math.random(),
+        answer,
+        index,
 
-    }));
-    const allAnswers = [correctAnswer, ...wrongAnswers];
-    console.log(allAnswers);
+      }));
+      allAnswers = [correctAnswer, ...wrongAnswers];
+      allAnswers.sort((a, b) => a.number - b.number);
+      console.log(allAnswers);
+    }
+
     return (
       <section>
-        <p data-testid="question-category">{currentQuestion.category}</p>
-        <p data-testid="question-text">{currentQuestion.question}</p>
+        {currentQuestion
+          ? <p data-testid="question-category">{currentQuestion.category}</p>
+          : <p>Loading...</p>}
+        {currentQuestion
+          ? <p data-testid="question-text">{currentQuestion.question}</p>
+          : <p>Loading...</p>}
+        {allAnswers
+          ? allAnswers.map((answer) => (
+            <button
+              type="button"
+              key={ answer.number }
+              data-testid={ answer.correct
+                ? 'correct-answer' : `wrong-answer-${answer.index}` }
+            >
+              {answer.answer}
+            </button>
+          )) : <p>Loading</p>}
 
       </section>
     );
@@ -31,7 +54,7 @@ class Game extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  trivia: state.apiReducer.trivia,
+  trivia: state.apiReducer.trivias,
 });
 
 export default connect(mapStateToProps)(Game);

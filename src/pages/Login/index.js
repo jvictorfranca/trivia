@@ -40,8 +40,13 @@ class Login extends React.Component {
     functionAddUserData(payload);
     const token = await this.fetchToken();
     console.log(token);
-    localStorage.state.player.name = login;
-    localStorage.state.player.gravatarEmail = email;
+    // localStorage.state = {
+    //   ...localStorage.state,
+    //   player: {
+    //     name: login,
+    //     gravatarEmail: email,
+    //   },
+    // };
     localStorage.setItem('token', token);
 
     history.push('/trivia');

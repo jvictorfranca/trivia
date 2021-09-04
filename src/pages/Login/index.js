@@ -5,6 +5,7 @@ import EmailInput from '../../Components/EmailInput';
 import LoginInput from '../../Components/LoginInput';
 import logo from '../../trivia.png';
 import { addUserData } from '../../redux/actions';
+import Timmer from '../../Components/Timmer';
 
 class Login extends React.Component {
   constructor(props) {
@@ -39,6 +40,14 @@ class Login extends React.Component {
     functionAddUserData(payload);
     const token = await this.fetchToken();
     console.log(token);
+    // localStorage.state = {
+    //   ...localStorage.state,
+    //   player: {
+    //     name: login,
+    //     gravatarEmail: email,
+    //   },
+    // };
+    localStorage.setItem('token', token);
 
     history.push('/trivia');
   }
@@ -46,12 +55,12 @@ class Login extends React.Component {
   async fetchToken() {
     const urlToken = await fetch('https://opentdb.com/api_token.php?command=request');
     const { token } = await urlToken.json();
-    localStorage.setItem('token', token);
     return token;
   }
 
   render() {
     const { login, email } = this.state;
+    const { history } = this.props;
     console.log(this.checkFields());
     return (
       <main>
@@ -77,6 +86,15 @@ class Login extends React.Component {
             Jogar
 
           </button>
+
+          <button
+            type="button"
+            data-testid="btn-settings"
+            onClick={ () => history.push('/configuracoes') }
+          >
+            Configurações
+          </button>
+          <Timmer />
         </form>
 
       </main>

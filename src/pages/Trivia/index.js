@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { PropTypes } from 'prop-types';
+import propTypes from 'prop-types';
+import { Redirect } from 'react-router';
 import Header from '../../Components/Header';
 import Game from '../../Components/Game';
 import addTrivia from '../../redux/actions';
@@ -19,10 +20,14 @@ class Trivia extends React.Component {
   }
 
   render() {
+    const { trivia } = this.props;
+    const { current } = trivia;
+    const maxQuestions = 5;
     return (
       <main>
         <Header score="0" playerName="joao" email="jvictorfranca@yahoo.com.br" />
         <Game />
+        {current === maxQuestions && <Redirect to="/feedback" />}
       </main>
     );
   }
@@ -32,8 +37,15 @@ const mapDispatchToProps = (dispatch) => ({
   setTrivia: (payload) => (dispatch(addTrivia(payload))),
 });
 
+const mapStateToProps = (state) => ({
+  trivia: state.apiReducer.trivias,
+});
+
 Trivia.propTypes = {
-  setTrivia: PropTypes.func.isRequired,
+  setTrivia: propTypes.func.isRequired,
+  trivia: propTypes.shape({
+    current: propTypes.number.isRequired,
+  }).isRequired,
 };
 
-export default connect(null, mapDispatchToProps)(Trivia);
+export default connect(mapStateToProps, mapDispatchToProps)(Trivia);

@@ -125,7 +125,7 @@ const mapDispatchToProps = (dispatch) => ({
 //   }
 
 const mapStateToProps = (state) => ({
-  userName: state.apiReducer.userData.name,
-  userEmail: state.apiReducer.userData.email,
+  userName: state.apiReducer.player.name,
+  userEmail: state.apiReducer.player.email,
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

@@ -2,10 +2,11 @@ const INNITIAL_STATE = {
   trivias: {
     current: 0,
   },
-  userData: {
+  player: {
     name: '',
-    email: '',
+    assertions: '',
     score: 0,
+    gravatarEmail: '',
   },
 };
 
@@ -20,19 +21,19 @@ function apiReducer(state = INNITIAL_STATE, action) {
   case 'ADD_USERDATA':
     return {
       ...state,
-      userData: {
-        ...state.userData,
+      player: {
+        ...state.player,
         name: action.payload.name,
-        email: action.payload.email,
+        gravatarEmail: action.payload.email,
       },
     };
 
   case 'ADD_SCORE':
     return {
       ...state,
-      userData: {
-        ...state.userData,
-        score: state.userData.score + action.payload,
+      player: {
+        ...state.player,
+        score: state.player.score + action.payload,
       },
     };
   default:

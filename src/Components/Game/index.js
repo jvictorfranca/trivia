@@ -122,7 +122,7 @@ class Game extends Component {
               key={ answer.number }
               data-testid={ answer.correct
                 ? 'correct-answer' : `wrong-answer-${answer.index}` }
-              className={ answered && (answer.correct ? 'correct' : 'wrong') }
+              className={ (answered && (answer.correct ? 'correct' : 'wrong')) || '' }
               onClick={ () => this.setAnswer(answer.correct) }
             >
               {answer.answer}

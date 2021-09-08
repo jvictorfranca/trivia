@@ -16,6 +16,21 @@ class Game extends Component {
     this.setAnswer = this.setAnswer.bind(this);
   }
 
+  componentDidUpdate() {
+    const { nameUser, scoreUser, emailUser } = this.props;
+
+    const state = {
+      player: {
+        name: nameUser,
+        assertions: 0,
+        score: scoreUser,
+        gravatarEmail: emailUser,
+      },
+    };
+
+    localStorage.setItem('state', JSON.stringify(state));
+  }
+
   setAnswer(correct) {
     this.setState({
       answered: true,
@@ -83,10 +98,17 @@ Game.propTypes = {
     results: propTypes.arrayOf(propTypes.object.isRequired),
   }).isRequired,
   addPoints: propTypes.func.isRequired,
+  nameUser: propTypes.string.isRequired,
+  scoreUser: propTypes.number.isRequired,
+  emailUser: propTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   trivia: state.apiReducer.trivias,
+  nameUser: state.apiReducer.userData.name,
+  scoreUser: state.apiReducer.userData.score,
+  emailUser: state.apiReducer.userData.email,
+
 });
 
 const mapDispatchToProps = (dispatch) => ({

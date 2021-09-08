@@ -1,4 +1,4 @@
-export default scoreCalculator = (timer, difficult) => {
+const scoreCalculator = (timer, difficult) => {
   const difficultObject = {
     hard: 3,
     medium: 2,
@@ -8,3 +8,5 @@ export default scoreCalculator = (timer, difficult) => {
   const basePoints = 10;
   return (basePoints + (timer * difficultPoints));
 };
+
+export default scoreCalculator;

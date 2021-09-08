@@ -141,6 +141,7 @@ Game.propTypes = {
     results: propTypes.arrayOf(propTypes.object.isRequired),
   }).isRequired,
   addPoints: propTypes.func.isRequired,
+  addCorrectQuestion: propTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

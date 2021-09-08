@@ -6,7 +6,6 @@ const scoreCalculator = (timer, difficult) => {
   };
   const difficultPoints = difficultObject[difficult];
   const basePoints = 10;
-  console.log(basePoints + (timer * difficultPoints));
   return (basePoints + (timer * difficultPoints));
 };
 

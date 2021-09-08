@@ -18,7 +18,6 @@ class Timmer extends React.Component {
   startTimming() {
     const ONE_SECONDS = 1000;
     const { constInterval } = this.state;
-    console.log(constInterval);
     if (!constInterval) {
       const setConstInterval = setInterval(() => {
         this.setState((prevState) => ({

@@ -51,9 +51,9 @@ class Game extends Component {
         const score = scoreCalculator(time, currentQuestion.difficulty);
         addPoints(score);
         addCorrectQuestion();
+        this.saveOnLocalStorage(score);
       }
       this.stopTimming();
-      this.saveOnLocalStorage();
     });
   }
 
@@ -92,20 +92,18 @@ class Game extends Component {
     }
   }
 
-  saveOnLocalStorage() {
+  saveOnLocalStorage(points) {
     const { nameUser, scoreUser, emailUser } = this.props;
-
     const state = {
       player: {
         name: nameUser,
         assertions: 0,
-        score: scoreUser,
+        score: scoreUser + points,
         gravatarEmail: emailUser,
       },
     };
-    console.log(state);
     localStorage.setItem('state', JSON.stringify(state));
-    console.log(JSON.parse(localStorage.state));
+    // console.log(JSON.parse(localStorage.state));
   }
 
   render() {

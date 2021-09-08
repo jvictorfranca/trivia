@@ -14,21 +14,11 @@ class Game extends Component {
       time: 30,
     };
     this.setAnswer = this.setAnswer.bind(this);
+    this.saveOnLocalStorage = this.saveOnLocalStorage.bind(this);
   }
 
-  componentDidUpdate() {
-    const { nameUser, scoreUser, emailUser } = this.props;
-
-    const state = {
-      player: {
-        name: nameUser,
-        assertions: 0,
-        score: scoreUser,
-        gravatarEmail: emailUser,
-      },
-    };
-
-    localStorage.setItem('state', JSON.stringify(state));
+  componentDidMount() {
+    this.saveOnLocalStorage();
   }
 
   setAnswer(correct) {
@@ -42,8 +32,25 @@ class Game extends Component {
       if (correct) {
         const score = scoreCalculator(time, currentQuestion.difficulty);
         addPoints(score);
+        this.saveOnLocalStorage();
       }
     });
+  }
+
+  saveOnLocalStorage() {
+    const { nameUser, scoreUser, emailUser } = this.props;
+
+    const state = {
+      player: {
+        name: nameUser,
+        assertions: 0,
+        score: scoreUser,
+        gravatarEmail: emailUser,
+      },
+    };
+    console.log(state);
+    localStorage.setItem('state', JSON.stringify(state));
+    console.log(JSON.parse(localStorage.state));
   }
 
   render() {

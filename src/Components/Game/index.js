@@ -14,6 +14,11 @@ class Game extends Component {
       time: 30,
     };
     this.setAnswer = this.setAnswer.bind(this);
+    this.saveOnLocalStorage = this.saveOnLocalStorage.bind(this);
+  }
+
+  componentDidMount() {
+    this.saveOnLocalStorage();
   }
 
   setAnswer(correct) {
@@ -27,8 +32,25 @@ class Game extends Component {
       if (correct) {
         const score = scoreCalculator(time, currentQuestion.difficulty);
         addPoints(score);
+        this.saveOnLocalStorage();
       }
     });
+  }
+
+  saveOnLocalStorage() {
+    const { nameUser, scoreUser, emailUser } = this.props;
+
+    const state = {
+      player: {
+        name: nameUser,
+        assertions: 0,
+        score: scoreUser,
+        gravatarEmail: emailUser,
+      },
+    };
+    console.log(state);
+    localStorage.setItem('state', JSON.stringify(state));
+    console.log(JSON.parse(localStorage.state));
   }
 
   render() {
@@ -48,6 +70,7 @@ class Game extends Component {
       allAnswers.sort((a, b) => a.number - b.number);
       console.log(allAnswers);
     }
+
     return (
       <section>
         {currentQuestion
@@ -82,10 +105,17 @@ Game.propTypes = {
     results: propTypes.arrayOf(propTypes.object.isRequired),
   }).isRequired,
   addPoints: propTypes.func.isRequired,
+  nameUser: propTypes.string.isRequired,
+  scoreUser: propTypes.number.isRequired,
+  emailUser: propTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   trivia: state.apiReducer.trivias,
+  nameUser: state.apiReducer.userData.name,
+  scoreUser: state.apiReducer.userData.score,
+  emailUser: state.apiReducer.userData.email,
+
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import './styles.css';
-import { addScore } from '../../redux/actions';
+import { addScore, addCorrectQuestionCounter } from '../../redux/actions';
 import scoreCalculator from '../../helpers/scoreCalculator';
 // import apiReducer from '../../redux/reducers/apiReducer';
 
@@ -44,15 +44,16 @@ class Game extends Component {
       answered: true,
     }, () => {
       const { time } = this.state;
-      const { trivia, addPoints } = this.props;
+      const { trivia, addPoints, addCorrectQuestion } = this.props;
       const { results } = trivia;
       const currentQuestion = results[trivia.current];
       if (correct) {
         const score = scoreCalculator(time, currentQuestion.difficulty);
         addPoints(score);
-        this.saveOnLocalStorage();
+        addCorrectQuestion();
       }
       this.stopTimming();
+      this.saveOnLocalStorage();
     });
   }
 
@@ -145,7 +146,7 @@ class Game extends Component {
               key={ answer.number }
               data-testid={ answer.correct
                 ? 'correct-answer' : `wrong-answer-${answer.index}` }
-              className={ answered && (answer.correct ? 'correct' : 'wrong') }
+              className={ (answered && (answer.correct ? 'correct' : 'wrong')) || '' }
               onClick={ () => this.setAnswer(answer.correct) }
             >
               {answer.answer}
@@ -166,6 +167,8 @@ Game.propTypes = {
   nameUser: propTypes.string.isRequired,
   scoreUser: propTypes.number.isRequired,
   emailUser: propTypes.string.isRequired,
+  addCorrectQuestion: propTypes.func.isRequired,
+
 };
 
 const mapStateToProps = (state) => ({
@@ -178,7 +181,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   addPoints: (points) => dispatch(addScore(points)),
-
+  addCorrectQuestion: () => dispatch(addCorrectQuestionCounter()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);

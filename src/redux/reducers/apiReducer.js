@@ -6,6 +6,7 @@ const INNITIAL_STATE = {
     name: '',
     email: '',
     score: 0,
+    correctQuestionCounter: 0,
   },
 };
 
@@ -33,6 +34,15 @@ function apiReducer(state = INNITIAL_STATE, action) {
       userData: {
         ...state.userData,
         score: state.userData.score + action.payload,
+      },
+    };
+
+  case 'ADD_CORRECT_QUESTION_COUNTER':
+    return {
+      ...state,
+      userData: {
+        ...state.userData,
+        correctQuestionCounter: state.userData.correctQuestionCounter + 1,
       },
     };
   default:

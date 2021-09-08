@@ -14,4 +14,8 @@ export const addScore = (payload) => ({
   payload,
 });
 
+export const addCorrectQuestionCounter = () => ({
+  type: 'ADD_CORRECT_QUESTION_COUNTER',
+});
+
 export default addTrivia;

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import Header from '../../Components/Header';
 import Game from '../../Components/Game';
+import ScoreBoard from '../../Components/ScoreBoard';
 import addTrivia from '../../redux/actions';
 
 class Trivia extends React.Component {
@@ -23,6 +24,7 @@ class Trivia extends React.Component {
       <main>
         <Header score="0" playerName="joao" email="jvictorfranca@yahoo.com.br" />
         <Game />
+        <ScoreBoard />
       </main>
     );
   }

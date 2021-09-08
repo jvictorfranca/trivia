@@ -21,6 +21,11 @@ class Game extends Component {
     this.startTimming = this.startTimming.bind(this);
     this.stopTimming = this.stopTimming.bind(this);
     this.makeInterval = this.makeInterval.bind(this);
+    this.saveOnLocalStorage = this.saveOnLocalStorage.bind(this);
+  }
+
+  componentDidMount() {
+    this.saveOnLocalStorage();
   }
 
   componentDidUpdate() {
@@ -45,6 +50,7 @@ class Game extends Component {
       if (correct) {
         const score = scoreCalculator(time, currentQuestion.difficulty);
         addPoints(score);
+        this.saveOnLocalStorage();
       }
       this.stopTimming();
     });
@@ -85,6 +91,22 @@ class Game extends Component {
     }
   }
 
+  saveOnLocalStorage() {
+    const { nameUser, scoreUser, emailUser } = this.props;
+
+    const state = {
+      player: {
+        name: nameUser,
+        assertions: 0,
+        score: scoreUser,
+        gravatarEmail: emailUser,
+      },
+    };
+    console.log(state);
+    localStorage.setItem('state', JSON.stringify(state));
+    console.log(JSON.parse(localStorage.state));
+  }
+
   render() {
     const { trivia } = this.props;
     const { results } = trivia;
@@ -105,6 +127,7 @@ class Game extends Component {
         this.stateSortedAnswers(allAnswers);
       }
     }
+
     return (
       <section>
         <p>{time}</p>
@@ -140,10 +163,17 @@ Game.propTypes = {
     results: propTypes.arrayOf(propTypes.object.isRequired),
   }).isRequired,
   addPoints: propTypes.func.isRequired,
+  nameUser: propTypes.string.isRequired,
+  scoreUser: propTypes.number.isRequired,
+  emailUser: propTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   trivia: state.apiReducer.trivias,
+  nameUser: state.apiReducer.userData.name,
+  scoreUser: state.apiReducer.userData.score,
+  emailUser: state.apiReducer.userData.email,
+
 });
 
 const mapDispatchToProps = (dispatch) => ({

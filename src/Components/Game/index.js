@@ -48,6 +48,7 @@ class Game extends Component {
       allAnswers.sort((a, b) => a.number - b.number);
       console.log(allAnswers);
     }
+
     return (
       <section>
         {currentQuestion

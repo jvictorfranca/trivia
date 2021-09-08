@@ -178,6 +178,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   addPoints: (points) => dispatch(addScore(points)),
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);

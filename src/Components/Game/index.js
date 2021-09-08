@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import './styles.css';
-import { addScore } from '../../redux/actions';
+import { addScore, addCorrectQuestionCounter } from '../../redux/actions';
 import scoreCalculator from '../../helpers/scoreCalculator';
 // import apiReducer from '../../redux/reducers/apiReducer';
 
@@ -39,12 +39,13 @@ class Game extends Component {
       answered: true,
     }, () => {
       const { time } = this.state;
-      const { trivia, addPoints } = this.props;
+      const { trivia, addPoints, addCorrectQuestion } = this.props;
       const { results } = trivia;
       const currentQuestion = results[trivia.current];
       if (correct) {
         const score = scoreCalculator(time, currentQuestion.difficulty);
         addPoints(score);
+        addCorrectQuestion();
       }
       this.stopTimming();
     });
@@ -148,6 +149,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   addPoints: (points) => dispatch(addScore(points)),
+  addCorrectQuestion: () => dispatch(addCorrectQuestionCounter()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);

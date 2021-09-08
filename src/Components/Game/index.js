@@ -11,9 +11,27 @@ class Game extends Component {
     super(props);
     this.state = {
       answered: false,
+      sortedAnswers: undefined,
       time: 30,
+      constInterval: undefined,
+      counting: false,
     };
     this.setAnswer = this.setAnswer.bind(this);
+    this.stateSortedAnswers = this.stateSortedAnswers.bind(this);
+    this.startTimming = this.startTimming.bind(this);
+    this.stopTimming = this.stopTimming.bind(this);
+    this.makeInterval = this.makeInterval.bind(this);
+  }
+
+  componentDidUpdate() {
+    const { time, answered } = this.state;
+    if (!answered) {
+      this.startTimming();
+    }
+
+    if (time === 0 && !answered) {
+      this.setAnswer(false);
+    }
   }
 
   setAnswer(correct) {
@@ -28,14 +46,50 @@ class Game extends Component {
         const score = scoreCalculator(time, currentQuestion.difficulty);
         addPoints(score);
       }
+      this.stopTimming();
     });
+  }
+
+  makeInterval() {
+    const ONE_SECOND = 1000;
+    const setConstInterval = setInterval(() => {
+      this.setState((prevState) => ({
+        time: prevState.time - 1,
+        constInterval: setConstInterval,
+      }));
+    }, ONE_SECOND);
+  }
+
+  startTimming() {
+    const { counting } = this.state;
+    if (!counting) {
+      this.setState(({
+        counting: true,
+      }), this.makeInterval());
+    }
+  }
+
+  stateSortedAnswers(array) {
+    this.setState({
+      sortedAnswers: array,
+    });
+  }
+
+  stopTimming() {
+    const { constInterval } = this.state;
+    if (constInterval) {
+      clearInterval(constInterval);
+      this.setState({
+        constInterval: undefined,
+      });
+    }
   }
 
   render() {
     const { trivia } = this.props;
     const { results } = trivia;
     let currentQuestion; let allAnswers;
-    const { answered } = this.state;
+    const { answered, sortedAnswers, time } = this.state;
     if (results) {
       currentQuestion = results[trivia.current];
       const correctAnswer = {
@@ -45,19 +99,23 @@ class Game extends Component {
         correct: false, number: Math.random(), answer, index,
       }));
       allAnswers = [correctAnswer, ...wrongAnswers];
-      allAnswers.sort((a, b) => a.number - b.number);
-      console.log(allAnswers);
+      if (!sortedAnswers) {
+        allAnswers.sort((a, b) => a.number - b.number);
+        console.log(currentQuestion);
+        this.stateSortedAnswers(allAnswers);
+      }
     }
     return (
       <section>
+        <p>{time}</p>
         {currentQuestion
           ? <p data-testid="question-category">{currentQuestion.category}</p>
           : <p>Loading...</p>}
         {currentQuestion
           ? <p data-testid="question-text">{currentQuestion.question}</p>
           : <p>Loading...</p>}
-        {allAnswers
-          ? allAnswers.map((answer) => (
+        {sortedAnswers
+          ? sortedAnswers.map((answer) => (
             <button
               type="button"
               disabled={ answered }

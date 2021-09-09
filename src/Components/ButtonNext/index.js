@@ -17,8 +17,13 @@ class ButtonNext extends React.Component {
     return true;
   }
 
+  buttonClick() {
+    const { increaseCurrent, rst } = this.props;
+    increaseCurrent();
+    rst();
+  }
+
   render() {
-    const { increaseCurrent } = this.props;
     return (
       <div>
         {
@@ -27,7 +32,7 @@ class ButtonNext extends React.Component {
               <button
                 type="button"
                 data-testid="btn-next"
-                onClick={ () => increaseCurrent() }
+                onClick={ () => this.buttonClick() }
               >
                 Próxima
               </button>)
@@ -41,6 +46,7 @@ ButtonNext.propTypes = {
   time: propTypes.number.isRequired,
   buttonDisabled: propTypes.bool.isRequired,
   increaseCurrent: propTypes.func.isRequired,
+  rst: propTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({

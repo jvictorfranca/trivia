@@ -19,7 +19,11 @@ class Feedback extends Component {
       <main>
 
         <HeaderFeedback />
-        <p>{this.phraseConstructor(correctQuestionCounter)}</p>
+        <p
+          data-testid="feedback-text"
+        >
+          {this.phraseConstructor(correctQuestionCounter)}
+        </p>
 
       </main>
 

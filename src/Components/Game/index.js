@@ -4,6 +4,7 @@ import propTypes from 'prop-types';
 import './styles.css';
 import { addScore, addCorrectQuestionCounter } from '../../redux/actions';
 import scoreCalculator from '../../helpers/scoreCalculator';
+import ButtonNext from '../ButtonNext';
 // import apiReducer from '../../redux/reducers/apiReducer';
 
 class Game extends Component {
@@ -11,6 +12,7 @@ class Game extends Component {
     super(props);
     this.state = {
       answered: false,
+      buttonDisabled: true,
       sortedAnswers: undefined,
       time: 30,
       constInterval: undefined,
@@ -42,6 +44,7 @@ class Game extends Component {
   setAnswer(correct) {
     this.setState({
       answered: true,
+      buttonDisabled: false,
     }, () => {
       const { time } = this.state;
       const { trivia, addPoints, addCorrectQuestion } = this.props;
@@ -110,7 +113,7 @@ class Game extends Component {
     const { trivia } = this.props;
     const { results } = trivia;
     let currentQuestion; let allAnswers;
-    const { answered, sortedAnswers, time } = this.state;
+    const { answered, sortedAnswers, time, buttonDisabled } = this.state;
     if (results) {
       currentQuestion = results[trivia.current];
       const correctAnswer = {
@@ -151,6 +154,7 @@ class Game extends Component {
             </button>
           )) : <p>Loading</p>}
 
+        <ButtonNext buttonDisabled={ buttonDisabled } time={ time } />
       </section>
     );
   }

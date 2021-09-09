@@ -45,6 +45,15 @@ function apiReducer(state = INNITIAL_STATE, action) {
         correctQuestionCounter: state.userData.correctQuestionCounter + 1,
       },
     };
+
+  case 'ADD_CURRENT':
+    return {
+      ...state,
+      trivias: {
+        current: state.trivias.current + 1,
+      },
+    };
+
   default:
     return state;
   }

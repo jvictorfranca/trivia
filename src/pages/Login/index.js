@@ -5,7 +5,6 @@ import EmailInput from '../../Components/EmailInput';
 import LoginInput from '../../Components/LoginInput';
 import logo from '../../trivia.png';
 import { addUserData } from '../../redux/actions';
-import Timmer from '../../Components/Timmer';
 
 class Login extends React.Component {
   constructor(props) {
@@ -94,7 +93,6 @@ class Login extends React.Component {
           >
             Configurações
           </button>
-          <Timmer />
         </form>
 
       </main>

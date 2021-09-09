@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import './styles.css';
-import { addScore } from '../../redux/actions';
+import { addScore, addCorrectQuestionCounter } from '../../redux/actions';
 import scoreCalculator from '../../helpers/scoreCalculator';
 // import apiReducer from '../../redux/reducers/apiReducer';
 
@@ -11,9 +11,16 @@ class Game extends Component {
     super(props);
     this.state = {
       answered: false,
+      sortedAnswers: undefined,
       time: 30,
+      constInterval: undefined,
+      counting: false,
     };
     this.setAnswer = this.setAnswer.bind(this);
+    this.stateSortedAnswers = this.stateSortedAnswers.bind(this);
+    this.startTimming = this.startTimming.bind(this);
+    this.stopTimming = this.stopTimming.bind(this);
+    this.makeInterval = this.makeInterval.bind(this);
     this.saveOnLocalStorage = this.saveOnLocalStorage.bind(this);
   }
 
@@ -21,43 +28,89 @@ class Game extends Component {
     this.saveOnLocalStorage();
   }
 
+  componentDidUpdate() {
+    const { time, answered } = this.state;
+    if (!answered) {
+      this.startTimming();
+    }
+
+    if (time === 0 && !answered) {
+      this.setAnswer(false);
+    }
+  }
+
   setAnswer(correct) {
     this.setState({
       answered: true,
     }, () => {
       const { time } = this.state;
-      const { trivia, addPoints } = this.props;
+      const { trivia, addPoints, addCorrectQuestion } = this.props;
       const { results } = trivia;
       const currentQuestion = results[trivia.current];
       if (correct) {
         const score = scoreCalculator(time, currentQuestion.difficulty);
         addPoints(score);
-        this.saveOnLocalStorage();
+        addCorrectQuestion();
+        this.saveOnLocalStorage(score);
       }
+      this.stopTimming();
     });
   }
 
-  saveOnLocalStorage() {
-    const { nameUser, scoreUser, emailUser } = this.props;
+  makeInterval() {
+    const ONE_SECOND = 1000;
+    const setConstInterval = setInterval(() => {
+      this.setState((prevState) => ({
+        time: prevState.time - 1,
+        constInterval: setConstInterval,
+      }));
+    }, ONE_SECOND);
+  }
 
+  startTimming() {
+    const { counting } = this.state;
+    if (!counting) {
+      this.setState(({
+        counting: true,
+      }), this.makeInterval());
+    }
+  }
+
+  stateSortedAnswers(array) {
+    this.setState({
+      sortedAnswers: array,
+    });
+  }
+
+  stopTimming() {
+    const { constInterval } = this.state;
+    if (constInterval) {
+      clearInterval(constInterval);
+      this.setState({
+        constInterval: undefined,
+      });
+    }
+  }
+
+  saveOnLocalStorage(points) {
+    const { nameUser, scoreUser, emailUser } = this.props;
     const state = {
       player: {
         name: nameUser,
         assertions: 0,
-        score: scoreUser,
+        score: scoreUser + points,
         gravatarEmail: emailUser,
       },
     };
-    console.log(state);
     localStorage.setItem('state', JSON.stringify(state));
-    console.log(JSON.parse(localStorage.state));
+    // console.log(JSON.parse(localStorage.state));
   }
 
   render() {
     const { trivia } = this.props;
     const { results } = trivia;
     let currentQuestion; let allAnswers;
-    const { answered } = this.state;
+    const { answered, sortedAnswers, time } = this.state;
     if (results) {
       currentQuestion = results[trivia.current];
       const correctAnswer = {
@@ -67,27 +120,31 @@ class Game extends Component {
         correct: false, number: Math.random(), answer, index,
       }));
       allAnswers = [correctAnswer, ...wrongAnswers];
-      allAnswers.sort((a, b) => a.number - b.number);
-      console.log(allAnswers);
+      if (!sortedAnswers) {
+        allAnswers.sort((a, b) => a.number - b.number);
+        console.log(currentQuestion);
+        this.stateSortedAnswers(allAnswers);
+      }
     }
 
     return (
       <section>
+        <p>{time}</p>
         {currentQuestion
           ? <p data-testid="question-category">{currentQuestion.category}</p>
           : <p>Loading...</p>}
         {currentQuestion
           ? <p data-testid="question-text">{currentQuestion.question}</p>
           : <p>Loading...</p>}
-        {allAnswers
-          ? allAnswers.map((answer) => (
+        {sortedAnswers
+          ? sortedAnswers.map((answer) => (
             <button
               type="button"
               disabled={ answered }
               key={ answer.number }
               data-testid={ answer.correct
                 ? 'correct-answer' : `wrong-answer-${answer.index}` }
-              className={ answered && (answer.correct ? 'correct' : 'wrong') }
+              className={ (answered && (answer.correct ? 'correct' : 'wrong')) || '' }
               onClick={ () => this.setAnswer(answer.correct) }
             >
               {answer.answer}
@@ -108,6 +165,8 @@ Game.propTypes = {
   nameUser: propTypes.string.isRequired,
   scoreUser: propTypes.number.isRequired,
   emailUser: propTypes.string.isRequired,
+  addCorrectQuestion: propTypes.func.isRequired,
+
 };
 
 const mapStateToProps = (state) => ({
@@ -120,6 +179,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   addPoints: (points) => dispatch(addScore(points)),
+  addCorrectQuestion: () => dispatch(addCorrectQuestionCounter()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);

@@ -19,7 +19,6 @@ class Header extends React.Component {
   fetchImgSrc() {
     const { userEmail } = this.props;
     const hashed = MD5(userEmail).toString();
-    console.log(hashed);
     this.setState({
       imgURL: `https://www.gravatar.com/avatar/${hashed}`,
     });

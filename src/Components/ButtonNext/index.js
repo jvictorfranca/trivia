@@ -1,5 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { addCurrent } from '../../redux/actions';
 
 class ButtonNext extends React.Component {
   constructor() {
@@ -9,7 +11,6 @@ class ButtonNext extends React.Component {
 
   buttonDisabledOrTime() {
     const { time, buttonDisabled } = this.props;
-
     if (buttonDisabled === false || time === 0) {
       return false;
     }
@@ -17,11 +18,19 @@ class ButtonNext extends React.Component {
   }
 
   render() {
+    const { increaseCurrent } = this.props;
     return (
       <div>
         {
           this.buttonDisabledOrTime() ? <p> </p>
-            : <button type="button" data-testid="btn-next"> Próxima </button>
+            : (
+              <button
+                type="button"
+                data-testid="btn-next"
+                onClick={ () => increaseCurrent() }
+              >
+                Próxima
+              </button>)
         }
       </div>
     );
@@ -31,6 +40,11 @@ class ButtonNext extends React.Component {
 ButtonNext.propTypes = {
   time: propTypes.number.isRequired,
   buttonDisabled: propTypes.bool.isRequired,
+  increaseCurrent: propTypes.func.isRequired,
 };
 
-export default ButtonNext;
+const mapDispatchToProps = (dispatch) => ({
+  increaseCurrent: () => dispatch(addCurrent()),
+});
+
+export default connect(null, mapDispatchToProps)(ButtonNext);

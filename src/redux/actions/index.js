@@ -18,4 +18,8 @@ export const addCorrectQuestionCounter = () => ({
   type: 'ADD_CORRECT_QUESTION_COUNTER',
 });
 
+export const addCurrent = () => ({
+  type: 'ADD_CURRENT',
+});
+
 export default addTrivia;

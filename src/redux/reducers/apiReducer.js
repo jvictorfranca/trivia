@@ -50,6 +50,7 @@ function apiReducer(state = INNITIAL_STATE, action) {
     return {
       ...state,
       trivias: {
+        ...state.trivias,
         current: state.trivias.current + 1,
       },
     };

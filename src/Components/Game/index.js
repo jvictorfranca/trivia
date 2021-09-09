@@ -13,17 +13,16 @@ class Game extends Component {
     this.state = {
       answered: false,
       buttonDisabled: true,
-      sortedAnswers: undefined,
       time: 30,
       constInterval: undefined,
       counting: false,
     };
     this.setAnswer = this.setAnswer.bind(this);
-    this.stateSortedAnswers = this.stateSortedAnswers.bind(this);
     this.startTimming = this.startTimming.bind(this);
     this.stopTimming = this.stopTimming.bind(this);
     this.makeInterval = this.makeInterval.bind(this);
     this.saveOnLocalStorage = this.saveOnLocalStorage.bind(this);
+    this.reset = this.reset.bind(this);
   }
 
   componentDidMount() {
@@ -60,6 +59,16 @@ class Game extends Component {
     });
   }
 
+  reset() {
+    this.setState({
+      answered: false,
+      buttonDisabled: true,
+      time: 30,
+      constInterval: undefined,
+      counting: false,
+    });
+  }
+
   makeInterval() {
     const ONE_SECOND = 1000;
     const setConstInterval = setInterval(() => {
@@ -77,12 +86,6 @@ class Game extends Component {
         counting: true,
       }), this.makeInterval());
     }
-  }
-
-  stateSortedAnswers(array) {
-    this.setState({
-      sortedAnswers: array,
-    });
   }
 
   stopTimming() {
@@ -109,25 +112,27 @@ class Game extends Component {
     // console.log(JSON.parse(localStorage.state));
   }
 
+  compareFunction(a, b) {
+    const ONE = 1;
+    const MINUSONE = -1;
+    return (a.answer > b.answer) ? ONE : MINUSONE;
+  }
+
   render() {
     const { trivia } = this.props;
     const { results } = trivia;
     let currentQuestion; let allAnswers;
-    const { answered, sortedAnswers, time, buttonDisabled } = this.state;
+    const { answered, time, buttonDisabled } = this.state;
     if (results) {
       currentQuestion = results[trivia.current];
       const correctAnswer = {
-        correct: true, number: Math.random(), answer: currentQuestion.correct_answer,
+        correct: true, answer: currentQuestion.correct_answer,
       };
       const wrongAnswers = currentQuestion.incorrect_answers.map((answer, index) => ({
-        correct: false, number: Math.random(), answer, index,
+        correct: false, answer, index,
       }));
       allAnswers = [correctAnswer, ...wrongAnswers];
-      if (!sortedAnswers) {
-        allAnswers.sort((a, b) => a.number - b.number);
-        console.log(currentQuestion);
-        this.stateSortedAnswers(allAnswers);
-      }
+      allAnswers.sort((a, b) => this.compareFunction(a, b));
     }
 
     return (
@@ -139,8 +144,8 @@ class Game extends Component {
         {currentQuestion
           ? <p data-testid="question-text">{currentQuestion.question}</p>
           : <p>Loading...</p>}
-        {sortedAnswers
-          ? sortedAnswers.map((answer) => (
+        { allAnswers
+          ? allAnswers.map((answer) => (
             <button
               type="button"
               disabled={ answered }
@@ -154,7 +159,7 @@ class Game extends Component {
             </button>
           )) : <p>Loading</p>}
 
-        <ButtonNext buttonDisabled={ buttonDisabled } time={ time } />
+        <ButtonNext buttonDisabled={ buttonDisabled } time={ time } rst={ this.reset } />
       </section>
     );
   }

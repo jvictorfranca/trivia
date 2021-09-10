@@ -18,9 +18,10 @@ class ButtonNext extends React.Component {
   }
 
   buttonClick() {
-    const { increaseCurrent, rst } = this.props;
+    const { increaseCurrent, rst, saveRankOnLocalStorage } = this.props;
     increaseCurrent();
     rst();
+    saveRankOnLocalStorage();
   }
 
   render() {
@@ -47,6 +48,7 @@ ButtonNext.propTypes = {
   buttonDisabled: propTypes.bool.isRequired,
   increaseCurrent: propTypes.func.isRequired,
   rst: propTypes.func.isRequired,
+  saveRankOnLocalStorage: propTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({

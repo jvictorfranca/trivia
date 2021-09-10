@@ -22,4 +22,8 @@ export const addCurrent = () => ({
   type: 'ADD_CURRENT',
 });
 
+export const resetCurrent = () => ({
+  type: 'RESET_CURRENT',
+});
+
 export default addTrivia;

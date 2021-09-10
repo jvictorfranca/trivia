@@ -14,7 +14,7 @@ class Feedback extends Component {
   }
 
   render() {
-    const { correctQuestionCounter } = this.props;
+    const { correctQuestionCounter, history } = this.props;
     return (
       <main>
 
@@ -24,6 +24,14 @@ class Feedback extends Component {
         >
           {this.phraseConstructor(correctQuestionCounter)}
         </p>
+
+        <button
+          type="button"
+          data-testid="btn-play-again"
+          onClick={ () => history.push('/') }
+        >
+          Jogar novamente
+        </button>
 
       </main>
 
@@ -37,6 +45,9 @@ const mapStateToProps = (state) => ({
 
 Feedback.propTypes = {
   correctQuestionCounter: propTypes.number.isRequired,
+  history: propTypes.shape({
+    push: propTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default connect(mapStateToProps)(Feedback);

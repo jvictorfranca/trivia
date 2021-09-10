@@ -99,12 +99,12 @@ class Game extends Component {
   }
 
   saveOnLocalStorage(points) {
-    const { nameUser, scoreUser, emailUser } = this.props;
+    const { nameUser, scoreUser, emailUser, assertionsUser } = this.props;
     const state = {
       player: {
         name: nameUser,
-        assertions: 0,
-        score: scoreUser + points,
+        assertions: assertionsUser === 0 ? 0 : assertionsUser + 1,
+        score: points === undefined ? 0 : scoreUser + points,
         gravatarEmail: emailUser,
       },
     };
@@ -175,7 +175,7 @@ Game.propTypes = {
   scoreUser: propTypes.number.isRequired,
   emailUser: propTypes.string.isRequired,
   addCorrectQuestion: propTypes.func.isRequired,
-
+  assertionsUser: propTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -183,7 +183,7 @@ const mapStateToProps = (state) => ({
   nameUser: state.apiReducer.userData.name,
   scoreUser: state.apiReducer.userData.score,
   emailUser: state.apiReducer.userData.email,
-
+  assertionsUser: state.apiReducer.userData.correctQuestionCounter,
 });
 
 const mapDispatchToProps = (dispatch) => ({

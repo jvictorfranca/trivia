@@ -64,19 +64,13 @@ class Login extends React.Component {
     return (
       <main>
 
-        <header className="App-header">
-          <img src={ logo } className="App-logo" alt="logo" />
-          <p>
-            SUA VEZ. Teste para começar
-          </p>
-        </header>
-
-        <form action="GET">
+        <form action="GET" className="form-login">
           <LoginInput onChange={ this.handleChange } value={ login } />
 
           <EmailInput onChange={ this.handleChange } value={ email } />
 
           <button
+            className="button-login"
             type="button"
             data-testid="btn-play"
             disabled={ this.checkFields() }
@@ -87,6 +81,7 @@ class Login extends React.Component {
           </button>
 
           <button
+            className="button-config"
             type="button"
             data-testid="btn-settings"
             onClick={ () => history.push('/configuracoes') }
@@ -94,6 +89,10 @@ class Login extends React.Component {
             Configurações
           </button>
         </form>
+
+        <div className="logo-login">
+          <img src={ logo } className="App-logo" alt="logo" />
+        </div>
 
       </main>
 

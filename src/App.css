@@ -1,18 +1,65 @@
-.App {
-  text-align: center;
-}
+@media screen and (min-width: 700px) {
+  body {
+    background-color: #7e1a20;
+  }
 
-.App-logo {
-  height: 40vmin;
+ .App-logo {
+  height: 20vmin;
   pointer-events: none;
-}
+  }
+   
+ .logo-login {
+    align-items: center;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    font-size: calc(10px + 2vmin);
+    justify-content: center;
+    min-height: 90vh;
+  }
 
-.red-border {
-  border: 1px solid red;
-}
+  .form-login {
+    background-color: #ecd045;
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+  }
 
-.green-border {
-  border: 1px solid green;
+  .input-login {
+    background-color: antiquewhite;
+    border-radius: 5px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 17px;
+    margin-left: 5px;
+    padding: 5px;
+    width: 250px;
+  }
+
+  .label-login {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: larger;
+  }
+
+  .button-config {
+    background-color: rgba(254, 255, 255, 0.692);
+    border-radius: 5px;
+    border-color: rgb(224, 230, 230);
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 17px;
+    padding: 8px;
+  }
+
+  .button-config:hover {
+    background-color: rgb(255, 255, 255);
+  }
+
+  .button-login {
+    border-radius: 5px;
+    border-color: rgb(224, 230, 230);
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 17px;
+    padding: 8px;
+  }
 }
 
 @media ( prefers-reduced-motion : no-preference ) {
@@ -20,21 +67,6 @@
   .App-logo {
     animation: shake infinite 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
   }
-}
-
-.App-header {
-  align-items: center;
-  background-color: #282c34;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  font-size: calc(10px + 2vmin);
-  justify-content: center;
-  min-height: 100vh;
-}
-
-.App-link {
-  color: #61dafb;
 }
 
 @keyframes shake {

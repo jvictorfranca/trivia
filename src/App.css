@@ -1,14 +1,15 @@
-@media screen and (min-width: 700px) {
+@media screen and ( min-width : 700px ) {
+
   body {
     background-color: #7e1a20;
   }
 
- .App-logo {
-  height: 20vmin;
-  pointer-events: none;
+  .App-logo {
+    height: 20vmin;
+    pointer-events: none;
   }
-   
- .logo-login {
+
+  .logo-login {
     align-items: center;
     color: white;
     display: flex;
@@ -28,7 +29,7 @@
   .input-login {
     background-color: antiquewhite;
     border-radius: 5px;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family: Cambria , Cochin , Georgia , Times , Times New Roman , serif;
     font-size: 17px;
     margin-left: 5px;
     padding: 5px;
@@ -36,27 +37,27 @@
   }
 
   .label-login {
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family: Cambria , Cochin , Georgia , Times , Times New Roman , serif;
     font-size: larger;
   }
 
   .button-config {
     background-color: rgba(254, 255, 255, 0.692);
-    border-radius: 5px;
     border-color: rgb(224, 230, 230);
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    border-radius: 5px;
+    font-family: Cambria , Cochin , Georgia , Times , Times New Roman , serif;
     font-size: 17px;
     padding: 8px;
   }
 
   .button-config:hover {
-    background-color: rgb(255, 255, 255);
+    background-color: white;
   }
 
   .button-login {
-    border-radius: 5px;
     border-color: rgb(224, 230, 230);
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    border-radius: 5px;
+    font-family: Cambria , Cochin , Georgia , Times , Times New Roman , serif;
     font-size: 17px;
     padding: 8px;
   }

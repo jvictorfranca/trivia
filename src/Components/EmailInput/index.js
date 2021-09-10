@@ -5,9 +5,10 @@ class EmailInput extends React.Component {
   render() {
     const { value, onChange } = this.props;
     return (
-      <label htmlFor="email">
+      <label htmlFor="email" className="label-login">
         Email:
         <input
+          className="input-login"
           type="text"
           name="email"
           id="email"

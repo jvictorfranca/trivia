@@ -14,7 +14,7 @@ class Feedback extends Component {
   }
 
   render() {
-    const { correctQuestionCounter, totalScore } = this.props;
+    const { correctQuestionCounter, totalScore, history } = this.props;
     return (
       <main>
 
@@ -29,6 +29,14 @@ class Feedback extends Component {
           {correctQuestionCounter}
         </p>
 
+        <button
+          type="button"
+          data-testid="btn-play-again"
+          onClick={ () => history.push('/') }
+        >
+          Jogar novamente
+        </button>
+
       </main>
 
     );
@@ -42,6 +50,9 @@ const mapStateToProps = (state) => ({
 
 Feedback.propTypes = {
   correctQuestionCounter: propTypes.number.isRequired,
+  history: propTypes.shape({
+    push: propTypes.func.isRequired,
+  }).isRequired,
   totalScore: propTypes.number.isRequired,
 };
 

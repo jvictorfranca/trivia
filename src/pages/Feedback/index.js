@@ -14,7 +14,7 @@ class Feedback extends Component {
   }
 
   render() {
-    const { correctQuestionCounter } = this.props;
+    const { correctQuestionCounter, totalScore } = this.props;
     return (
       <main>
 
@@ -23,6 +23,10 @@ class Feedback extends Component {
           data-testid="feedback-text"
         >
           {this.phraseConstructor(correctQuestionCounter)}
+        </p>
+        <p data-testid="feedback-total-score">{totalScore}</p>
+        <p data-testid="feedback-total-question">
+          {correctQuestionCounter}
         </p>
 
       </main>
@@ -33,10 +37,12 @@ class Feedback extends Component {
 
 const mapStateToProps = (state) => ({
   correctQuestionCounter: state.apiReducer.userData.correctQuestionCounter,
+  totalScore: state.apiReducer.userData.score,
 });
 
 Feedback.propTypes = {
   correctQuestionCounter: propTypes.number.isRequired,
+  totalScore: propTypes.number.isRequired,
 };
 
 export default connect(mapStateToProps)(Feedback);

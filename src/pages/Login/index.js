@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import EmailInput from '../../Components/EmailInput';
 import LoginInput from '../../Components/LoginInput';
 import logo from '../../trivia.png';
-import { addUserData } from '../../redux/actions';
+import { addUserData, resetCurrent } from '../../redux/actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -15,6 +15,11 @@ class Login extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.checkFields = this.checkFields.bind(this);
+  }
+
+  componentDidMount() {
+    const { removeCurrent } = this.props;
+    removeCurrent();
   }
 
   handleChange(event) {
@@ -38,7 +43,6 @@ class Login extends React.Component {
     };
     functionAddUserData(payload);
     const token = await this.fetchToken();
-    console.log(token);
     // localStorage.state = {
     //   ...localStorage.state,
     //   player: {
@@ -60,7 +64,6 @@ class Login extends React.Component {
   render() {
     const { login, email } = this.state;
     const { history } = this.props;
-    console.log(this.checkFields());
     return (
       <main>
 
@@ -106,10 +109,12 @@ Login.propTypes = {
     push: PropTypes.func.isRequired,
   }).isRequired,
   functionAddUserData: PropTypes.func.isRequired,
+  removeCurrent: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   functionAddUserData: (payload) => { dispatch(addUserData(payload)); },
+  removeCurrent: () => { dispatch(resetCurrent()); },
 });
 
 // estadoGlobal = {

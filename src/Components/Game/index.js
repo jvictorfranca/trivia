@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import './styles.css';
+import MD5 from 'crypto-js/md5';
 import { addScore, addCorrectQuestionCounter } from '../../redux/actions';
 import scoreCalculator from '../../helpers/scoreCalculator';
 import ButtonNext from '../ButtonNext';
@@ -23,6 +24,7 @@ class Game extends Component {
     this.makeInterval = this.makeInterval.bind(this);
     this.saveOnLocalStorage = this.saveOnLocalStorage.bind(this);
     this.reset = this.reset.bind(this);
+    this.saveRankOnLocalStorage = this.saveRankOnLocalStorage.bind(this);
   }
 
   componentDidMount() {
@@ -57,6 +59,37 @@ class Game extends Component {
       }
       this.stopTimming();
     });
+  }
+
+  saveRankOnLocalStorage() {
+    const { nameUser, scoreUser, trivia } = this.props;
+    const { current } = trivia;
+    const imgUrl = this.fetchImgSrc();
+    const player = {
+      name: nameUser,
+      score: scoreUser,
+      img: imgUrl,
+    };
+    const ALL_QUESTIONS = 4;
+    if (current === ALL_QUESTIONS) {
+      const oldRanking = localStorage.ranking ? JSON.parse(localStorage.ranking) : [];
+      let newRanking = [...oldRanking, player];
+      newRanking.sort((a, b) => b.score - a.score);
+      newRanking = newRanking.map((currPlayer, index) => ({
+        ...currPlayer,
+        index,
+      }));
+      const rankingString = JSON.stringify(newRanking);
+      localStorage.ranking = rankingString;
+    }
+  }
+
+  fetchImgSrc() {
+    const { emailUser } = this.props;
+    const hashed = MD5(emailUser).toString();
+
+    const imgURL = `https://www.gravatar.com/avatar/${hashed}`;
+    return imgURL;
   }
 
   reset() {
@@ -109,7 +142,6 @@ class Game extends Component {
       },
     };
     localStorage.setItem('state', JSON.stringify(state));
-    // console.log(JSON.parse(localStorage.state));
   }
 
   compareFunction(a, b) {
@@ -145,11 +177,11 @@ class Game extends Component {
           ? <p data-testid="question-text">{currentQuestion.question}</p>
           : <p>Loading...</p>}
         { allAnswers
-          ? allAnswers.map((answer) => (
+          ? allAnswers.map((answer, index) => (
             <button
               type="button"
               disabled={ answered }
-              key={ answer.number }
+              key={ index }
               data-testid={ answer.correct
                 ? 'correct-answer' : `wrong-answer-${answer.index}` }
               className={ (answered && (answer.correct ? 'correct' : 'wrong')) || '' }
@@ -158,8 +190,12 @@ class Game extends Component {
               {answer.answer}
             </button>
           )) : <p>Loading</p>}
-
-        <ButtonNext buttonDisabled={ buttonDisabled } time={ time } rst={ this.reset } />
+        <ButtonNext
+          buttonDisabled={ buttonDisabled }
+          time={ time }
+          rst={ this.reset }
+          saveRankOnLocalStorage={ this.saveRankOnLocalStorage }
+        />
       </section>
     );
   }

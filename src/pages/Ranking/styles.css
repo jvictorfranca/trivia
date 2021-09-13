@@ -12,6 +12,7 @@
 
 .player-section {
   align-items: center;
+  background-color: rgba(141, 37, 37, 0.432);
   border: solid #ecd045 1px;
   display: flex;
   margin: 20px;

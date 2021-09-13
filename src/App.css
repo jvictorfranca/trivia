@@ -2,6 +2,8 @@
 
   body {
     background-color: #7e1a20;
+    background-image: url('./Images/bricks-texture.png');
+
   }
 
   .App-logo {

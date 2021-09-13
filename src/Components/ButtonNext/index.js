@@ -2,6 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addCurrent } from '../../redux/actions';
+import './styles.css';
 
 class ButtonNext extends React.Component {
   constructor() {
@@ -31,6 +32,7 @@ class ButtonNext extends React.Component {
           this.buttonDisabledOrTime() ? <p> </p>
             : (
               <button
+                className="button-next"
                 type="button"
                 data-testid="btn-next"
                 onClick={ () => this.buttonClick() }

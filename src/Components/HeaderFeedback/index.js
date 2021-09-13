@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import MD5 from 'crypto-js/md5';
 import { connect } from 'react-redux';
+import './styles.css';
 
 class HeaderFeedback extends Component {
   constructor() {
@@ -28,14 +29,14 @@ class HeaderFeedback extends Component {
     const { userName, userScore } = this.props;
     const { imgURL } = this.state;
     return (
-      <header>
+      <header className="header-feedback">
         <img
           src={ imgURL }
           alt={ userName }
           data-testid="header-profile-picture"
         />
-        <span data-testid="header-player-name">{ `${userName}` }</span>
-        <span data-testid="header-score">{ userScore }</span>
+        <h1 data-testid="header-player-name">{ `${userName}` }</h1>
+        <h2 data-testid="header-score">{ userScore }</h2>
       </header>
     );
   }

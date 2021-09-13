@@ -5,6 +5,7 @@ import { Redirect } from 'react-router';
 import Header from '../../Components/Header';
 import Game from '../../Components/Game';
 import addTrivia from '../../redux/actions';
+import './styles.css';
 
 class Trivia extends React.Component {
   componentDidMount() {
@@ -25,7 +26,7 @@ class Trivia extends React.Component {
     const maxQuestions = 5;
     return (
       <main>
-        <Header score="0" playerName="joao" email="jvictorfranca@yahoo.com.br" />
+        <Header />
         <Game />
         {current === maxQuestions && <Redirect to="/feedback" />}
       </main>

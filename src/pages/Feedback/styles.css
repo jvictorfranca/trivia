@@ -1,0 +1,52 @@
+.button-playagain {
+  background-color: rgb(235, 245, 105);
+  color: black;
+  font-size: 20px;
+  height: 60px;
+  margin: 5px;
+  margin-left: 40px;
+  width: 400px;
+}
+
+.button-ranking {
+  background-color: rgb(235, 245, 105);
+  color: black;
+  font-size: 20px;
+  height: 60px;
+  margin: 5px;
+  margin-left: 40px;
+  width: 400px;
+}
+
+.button-ranking:hover {
+  background-color: rgb(188, 196, 79);
+}
+
+.button-playagain:hover {
+  background-color: rgb(188, 196, 79);
+}
+
+.feedback-main p {
+  color: white;
+  font-size: 30px;
+}
+
+.feedback-text-container {
+  margin-left: 20px;
+}
+
+.feedback-image-container {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.feedback-image-container img {
+  border-radius: 100px;
+}
+
+.feedback-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}

@@ -1,0 +1,13 @@
+.button-next {
+  background-color: rgb(235, 245, 105);
+  color: black;
+  font-size: 20px;
+  height: 60px;
+  margin: 5px;
+  margin-left: 40px;
+  width: 400px;
+}
+
+.button-next:hover {
+  background-color: rgb(209, 207, 70);
+}

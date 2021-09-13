@@ -1,7 +1,79 @@
+.answer {
+  background-color: #e6deb6;
+  border: 3px solid black;
+  font-size: 20px;
+  height: 50px;
+  margin: 10px;
+  width: 30%;
+}
+
+.answer:hover {
+  border: 3px solid white;
+}
+
 .correct {
   border: 3px solid rgb(6, 240, 15);
+  color: rgb(6, 240, 15);
+}
+
+.correct:hover {
+  border: 3px solid rgb(6, 240, 15);
+  color: rgb(6, 240, 15);
 }
 
 .wrong {
   border: 3px solid red;
+  color: red;
 }
+
+.wrong:hover {
+  border: 3px solid red;
+  color: red;
+}
+
+.timer {
+  color: white;
+  font-size: 30px;
+  margin: 5px;
+  margin-left: 20px;
+}
+
+.question-category {
+  color: white;
+  font-size: 20px;
+  margin: 5px;
+  margin-left: 10px;
+}
+
+.game-section {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.question-image {
+  background-color: blue;
+  background-image: url('../../Images/porteiro.png');
+  background-size: cover;
+  border-radius: 100px;
+  height: 300px;
+  width: 900px;
+}
+
+.text {
+  align-items: center;
+  background-image: url('../../Images/oie_transparent.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: flex;
+  font-size: 20px;
+  height: 150px;
+  justify-content: center;
+  margin: 0;
+  margin-left: 150px;
+  padding: 20px;
+  text-align: center;
+  text-indent: 20px;
+  width: 400px;
+}
+

@@ -1,0 +1,42 @@
+.ranking-header {
+  align-items: center;
+  background-color: #ecd045;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.rato-img {
+  border-radius: 100%;
+}
+
+.player-section {
+  align-items: center;
+  border: solid #ecd045 1px;
+  display: flex;
+  margin: 20px;
+  padding: 10px;
+}
+
+.player-section p {
+  color: white;
+  font-family: fantasy;
+  font-size: 50px;
+  margin: 10px;
+  text-align: center;
+}
+
+.btn-go-home {
+  background-color: rgb(235, 245, 105);
+  color: rgb(161, 10, 10);
+  font-family: cursive;
+  font-size: 30px;
+  font-weight: 900;
+  height: 60px;
+  margin: 50px 10%;
+  width: 80%;
+}
+
+.btn-go-home:hover {
+  background-color: rgb(186, 194, 81);
+}

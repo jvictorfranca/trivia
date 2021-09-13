@@ -150,15 +150,16 @@ class Game extends Component {
     return (a.answer > b.answer) ? ONE : MINUSONE;
   }
 
+  // eslint-disable-next-line max-lines-per-function
   render() {
     const { trivia } = this.props;
     const { results } = trivia;
     let currentQuestion; let allAnswers;
     const { answered, time, buttonDisabled } = this.state;
+    const c = 'question-category';
     if (results) {
       currentQuestion = results[trivia.current];
-      const correctAnswer = {
-        correct: true, answer: currentQuestion.correct_answer,
+      const correctAnswer = { correct: true, answer: currentQuestion.correct_answer,
       };
       const wrongAnswers = currentQuestion.incorrect_answers.map((answer, index) => ({
         correct: false, answer, index,
@@ -166,15 +167,22 @@ class Game extends Component {
       allAnswers = [correctAnswer, ...wrongAnswers];
       allAnswers.sort((a, b) => this.compareFunction(a, b));
     }
-
     return (
-      <section>
-        <p>{time}</p>
+      <section className="game-section">
+        <p className="timer">{`Time: ${time}`}</p>
         {currentQuestion
-          ? <p data-testid="question-category">{currentQuestion.category}</p>
+          ? (
+            <p data-testid={ c } className={ c }>
+              {`Category: ${currentQuestion.category}`}
+            </p>
+          )
           : <p>Loading...</p>}
-        {currentQuestion
-          ? <p data-testid="question-text">{currentQuestion.question}</p>
+        <div className="question-image" />
+        {currentQuestion ? <p
+          data-testid="question-text"
+          className="text"
+          dangerouslySetInnerHTML={ { __html: currentQuestion.question } }
+        />
           : <p>Loading...</p>}
         { allAnswers
           ? allAnswers.map((answer, index) => (
@@ -184,7 +192,8 @@ class Game extends Component {
               key={ index }
               data-testid={ answer.correct
                 ? 'correct-answer' : `wrong-answer-${answer.index}` }
-              className={ (answered && (answer.correct ? 'correct' : 'wrong')) || '' }
+              className={ (answered
+                 && (answer.correct ? 'correct answer' : 'wrong answer')) || 'answer' }
               onClick={ () => this.setAnswer(answer.correct) }
             >
               {answer.answer}

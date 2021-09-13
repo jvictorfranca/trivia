@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 import EmailInput from '../../Components/EmailInput';
 import LoginInput from '../../Components/LoginInput';
 import logo from '../../trivia.png';
+import castelo from '../../Images/castelo.gif';
 import { addUserData, resetCurrent } from '../../redux/actions';
+import './styles.css';
 
 class Login extends React.Component {
   constructor(props) {
@@ -92,10 +94,12 @@ class Login extends React.Component {
             Configurações
           </button>
         </form>
-
-        <div className="logo-login">
+        <section className="login-image-container">
           <img src={ logo } className="App-logo" alt="logo" />
-        </div>
+
+          <img src={ castelo } alt="Castelo" />
+
+        </section>
 
       </main>
 

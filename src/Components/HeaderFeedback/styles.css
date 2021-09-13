@@ -1,0 +1,6 @@
+.header-feedback {
+  background-color: #ecd045;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+}

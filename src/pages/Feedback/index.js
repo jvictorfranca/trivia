@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 import HeaderFeedback from '../../Components/HeaderFeedback';
+import './styles.css';
+import nino from '../../Images/nino.webp';
 
 class Feedback extends Component {
   phraseConstructor(number) {
     let message;
     const minNumber = 3;
-    if (number < minNumber) message = 'Podia ser melhor...';
-    else if (number >= minNumber) message = 'Mandou bem!';
+    if (number < minNumber) message = 'Plift ploft still, a porta não se abriu...';
+    else if (number >= minNumber) message = 'Plift ploft still, a porta se abriu!';
 
     return message;
   }
@@ -16,33 +18,44 @@ class Feedback extends Component {
   render() {
     const { correctQuestionCounter, totalScore, history } = this.props;
     return (
-      <main>
-
+      <main className="feedback-main">
         <HeaderFeedback />
-        <p
-          data-testid="feedback-text"
-        >
-          {this.phraseConstructor(correctQuestionCounter)}
-        </p>
-        <p data-testid="feedback-total-score">{totalScore}</p>
-        <p data-testid="feedback-total-question">
-          {correctQuestionCounter}
-        </p>
+        <section className="feedback-image-container">
+          <div className="feedback-text-container">
+            <p data-testid="feedback-text">
+              {this.phraseConstructor(correctQuestionCounter)}
+            </p>
+            <p data-testid="feedback-total-score">
+              Pontuação:
+              {totalScore}
+            </p>
+            <p data-testid="feedback-total-question">
+              Respostas Corretas:
+              {correctQuestionCounter}
+            </p>
+          </div>
+          <img src={ nino } alt="nino" />
+        </section>
 
-        <button
-          type="button"
-          data-testid="btn-play-again"
-          onClick={ () => history.push('/') }
-        >
-          Jogar novamente
-        </button>
-        <button
-          type="button"
-          data-testid="btn-ranking"
-          onClick={ () => history.push('/ranking') }
-        >
-          Ver Ranking
-        </button>
+        <div className="feedback-button-container">
+          <button
+            type="button"
+            data-testid="btn-play-again"
+            onClick={ () => history.push('/') }
+            className="button-playagain"
+          >
+            Jogar novamente
+          </button>
+          <button
+            type="button"
+            data-testid="btn-ranking"
+            onClick={ () => history.push('/ranking') }
+            className="button-ranking"
+          >
+            Ver Ranking
+          </button>
+
+        </div>
 
       </main>
 

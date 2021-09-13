@@ -26,7 +26,12 @@ class Ranking extends React.Component {
         {playerRank.map(((player, index) => (
           <section key={ index } className="player-section">
             <img src={ player.img } alt="gravatar" />
-            <p data-testid={ `player-name-${index}` }>{player.name}</p>
+            <p data-testid={ `player-name-${index}` }>
+              {player.name
+                ? player.name : 'Anónimo'}
+              :
+
+            </p>
             <p data-testid={ `player-score-${index}` }>{player.score}</p>
           </section>)))}
 

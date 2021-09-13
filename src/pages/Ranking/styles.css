@@ -2,6 +2,7 @@
   align-items: center;
   background-color: #ecd045;
   display: flex;
+  font-size: 40px;
   justify-content: space-between;
   padding: 10px;
 }

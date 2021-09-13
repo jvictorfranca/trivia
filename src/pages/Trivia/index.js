@@ -5,7 +5,6 @@ import { Redirect } from 'react-router';
 import Header from '../../Components/Header';
 import Game from '../../Components/Game';
 import addTrivia from '../../redux/actions';
-import './styles.css';
 
 class Trivia extends React.Component {
   componentDidMount() {

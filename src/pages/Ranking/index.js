@@ -32,7 +32,11 @@ class Ranking extends React.Component {
               :
 
             </p>
-            <p data-testid={ `player-score-${index}` }>{player.score}</p>
+            <p data-testid={ `player-score-${index}` }>
+              {player.score}
+              {' '}
+              pontos
+            </p>
           </section>)))}
 
       </main>

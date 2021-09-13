@@ -37,6 +37,7 @@
 
 .feedback-image-container {
   align-items: center;
+  background-color: rgba(141, 37, 37, 0.432);
   display: flex;
   justify-content: space-between;
 }

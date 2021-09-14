@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/trivia/static/css/main.760c8deb.chunk.css",
+    "main.js": "/trivia/static/js/main.1c90f807.chunk.js",
+    "main.js.map": "/trivia/static/js/main.1c90f807.chunk.js.map",
+    "runtime-main.js": "/trivia/static/js/runtime-main.6e763e45.js",
+    "runtime-main.js.map": "/trivia/static/js/runtime-main.6e763e45.js.map",
+    "static/js/2.7218f2fe.chunk.js": "/trivia/static/js/2.7218f2fe.chunk.js",
+    "static/js/2.7218f2fe.chunk.js.map": "/trivia/static/js/2.7218f2fe.chunk.js.map",
+    "index.html": "/trivia/index.html",
+    "precache-manifest.b4ec19cd358f15695e08eb1a9a9b3a5f.js": "/trivia/precache-manifest.b4ec19cd358f15695e08eb1a9a9b3a5f.js",
+    "service-worker.js": "/trivia/service-worker.js",
+    "static/css/main.760c8deb.chunk.css.map": "/trivia/static/css/main.760c8deb.chunk.css.map",
+    "static/js/2.7218f2fe.chunk.js.LICENSE": "/trivia/static/js/2.7218f2fe.chunk.js.LICENSE",
+    "static/media/App.css": "/trivia/static/media/bricks-texture.8d3ce985.png",
+    "static/media/styles.css": "/trivia/static/media/porteiro.79b16114.png",
+    "static/media/castelo.gif": "/trivia/static/media/castelo.4f95b1fe.gif",
+    "static/media/nino.webp": "/trivia/static/media/nino.a4689103.webp",
+    "static/media/rato.gif": "/trivia/static/media/rato.f418d2eb.gif",
+    "static/media/trivia.png": "/trivia/static/media/trivia.466d153e.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.6e763e45.js",
+    "static/js/2.7218f2fe.chunk.js",
+    "static/css/main.760c8deb.chunk.css",
+    "static/js/main.1c90f807.chunk.js"
+  ]
+}

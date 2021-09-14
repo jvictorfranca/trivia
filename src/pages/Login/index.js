@@ -54,7 +54,7 @@ class Login extends React.Component {
     // };
     localStorage.setItem('token', token);
 
-    history.push('/trivia');
+    history.push('/trivia-game');
   }
 
   async fetchToken() {

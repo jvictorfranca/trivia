@@ -11,8 +11,8 @@ export default function App() {
   return (
     <Switch>
 
-      <Route exact path="/" component={ Login } />
-      <Route path="/trivia" component={ Trivia } />
+      <Route exact path="/trivia" component={ Login } />
+      <Route path="/trivia-game" component={ Trivia } />
       <Route path="/configuracoes" component={ Configuracoes } />
       <Route path="/feedback" component={ Feedback } />
       <Route path="/ranking" component={ Ranking } />

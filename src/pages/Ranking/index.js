@@ -17,7 +17,7 @@ class Ranking extends React.Component {
         <button
           type="button"
           data-testid="btn-go-home"
-          onClick={ () => history.push('/') }
+          onClick={ () => history.push('/trivia') }
           className="btn-go-home"
         >
           Inicio

@@ -1,6 +1,8 @@
 .ranking-header {
   align-items: center;
   background-color: #ecd045;
+  background-image: url('../../Images/bricks-texture3.png');
+  background-size: contain;
   display: flex;
   font-size: 40px;
   justify-content: space-between;

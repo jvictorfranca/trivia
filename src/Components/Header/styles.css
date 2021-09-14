@@ -1,5 +1,7 @@
 .trivia-header {
   background-color: #ecd045;
+  background-image: url('../../Images/bricks-texture3.png');
+  background-size: contain;
   display: flex;
   justify-content: space-between;
   padding: 10px 20px;

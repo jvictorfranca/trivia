@@ -23,6 +23,8 @@
 
   .form-login {
     background-color: #ecd045;
+    background-image: url('./Images/bricks-texture3.png');
+    background-size: contain;
     display: flex;
     justify-content: space-around;
     padding: 20px;
